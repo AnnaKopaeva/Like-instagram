@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Image, Button, ScrollView, CameraRoll, Dimensions } from 'react-native';
-import FooterTabsIconExample from './footer';
 
 var width = Dimensions.get('window').width;
 
@@ -73,27 +72,12 @@ export default class Gallery extends React.Component {
     let {photos, cameraRollInfo: {has_next_page}} = this.state;
     return (
       <View style={{flex: 1}}>
-        <View style={{height: 40, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
-          <Image
-            style={{width:30, height: 30, position: 'absolute', zIndex:5, left: 5}}
-            resizeMode="contain"
-            source={require('../icon-photo.png')}
-          />
-          <Image
-            style={{height: 30, margin: 'auto'}}
-            resizeMode="contain"
-            source={require('../instagram_logo.svg')}
-          />
-        </View>
-          <ScrollView>
-            {this.getGalery(photos)}
-            { photos[0] && has_next_page &&
-              <Button title="...more images" onPress={this.addPhotos}/>
-            }
-          </ScrollView>
-        <View style={{height: 40}}>
-          <FooterTabsIconExample />
-        </View>
+        <ScrollView>
+          {this.getGalery(photos)}
+          { photos[0] && has_next_page &&
+            <Button title="...more images" onPress={this.addPhotos}/>
+          }
+        </ScrollView>
       </View>
     );
   }

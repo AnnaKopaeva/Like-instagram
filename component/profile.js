@@ -1,29 +1,58 @@
 import React, { Component } from 'react';
-import { Text, View, Image } from 'react-native';
-import FooterTabsIconExample from './footer';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { View, Image, TextInput, TouchableHighlight } from 'react-native';
+import * as addActions from '../actions/addActions';
 
-export default class Profile extends Component {
+import Header from './header'
+
+class Profile extends Component {
+  state = {
+    userPhoto: './images/user.png',
+    camera: false
+  }
+
+  changeAvatar = () => {
+    // let { userPhoto } = this.state;
+    let camera = true;
+    this.setState(camera)
+    console.log('some')
+  }
+
   render() {
+    let { camera, userPhoto } = this.state;
+    const { state, actions } = this.props;
+
     return (
       <View style={{flex: 1, paddingTop: 20}}>
-        <View style={{height: 40, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
-          <Image
-            style={{width:30, height: 30, position: 'absolute', zIndex:5, left: 5}}
-            resizeMode="contain"
-            source={require('../icon-photo.png')}
+        <Header />
+        <View style={{flex:1}}>
+          <TouchableHighlight onPress={this.changeAvatar}>
+            <Image
+              style={{width:60, height: 60}}
+              source={require('./images/user.png')}
+            />
+            {/*{camera && <TakePhoto />}*/}
+          </TouchableHighlight>
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(name) => state.name}
+            value={state.name}
           />
-          <Image
-            style={{height: 30, margin: 'auto'}}
-            resizeMode="contain"
-            source={require('../instagram_logo.svg')}
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            value={state.surname}
           />
-        </View>
-        <Text>Your name</Text>
-        <Text>Your phone</Text>
-        <View style={{height: 40}}>
-          <FooterTabsIconExample />
         </View>
       </View>
     );
   }
 }
+
+export default connect(state => ({
+    state: state.addInfo
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators(addActions, dispatch)
+  })
+)(Profile);

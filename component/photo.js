@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import { Camera, Permissions } from 'expo';
 
-export default class CameraExample extends React.Component {
+export default class TakePhoto extends React.Component {
   constructor(props){
     super(props);
     this.takePhoto = this.takePhoto.bind(this);
@@ -68,7 +67,7 @@ export default class CameraExample extends React.Component {
                 }}>
                 <Image
                   style={{width: 20, height: 20}}
-                  source={require('./camera-switch.png')}
+                  source={require('./images/camera-switch.png')}
                 />
               </TouchableOpacity>
             </View>

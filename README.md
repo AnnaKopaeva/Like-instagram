@@ -1,6 +1,6 @@
 # Like instagram
 
-![home](https://drive.google.com/file/d/16hlTHB94Wa8X0Iu-cQe8VlM9xQ8vzQlT/view?usp=sharing)
-![gallery](https://drive.google.com/file/d/1rirTeuqn5xrvrh7Zarnw0PgBudFASo0Y/view?usp=sharing)
-![photo](https://drive.google.com/file/d/1voMlDKu8imDBbpwTmYNYcLrnMCtu45G5/view?usp=sharing)
-![profile](https://drive.google.com/file/d/1kSOSaNmWFAVHbHh6nJQqgb4wI_hfKAkt/view?usp=sharing)
+![home](https://www.facebook.com/photo.php?fbid=1621877641222332&set=a.1621877557889007.1073741830.100002003340307&type=3&theater)
+![gallery](https://www.facebook.com/photo.php?fbid=1621877721222324&set=a.1621877557889007.1073741830.100002003340307&type=3&theater)
+![photo](https://www.facebook.com/photo.php?fbid=1621877627889000&set=a.1621877557889007.1073741830.100002003340307&type=3&theater)
+![profile](https://www.facebook.com/photo.php?fbid=1621877631222333&set=a.1621877557889007.1073741830.100002003340307&type=3&theater)

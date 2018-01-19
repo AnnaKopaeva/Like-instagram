@@ -10,12 +10,12 @@ import * as reducers from './reducers';
 import Home from './component/home';
 import AddPhoto from './component/addPhoto';
 import Profile from './component/profile';
+import DetailPhoto from './component/detailPhoto';
 
 const AppNavigation = TabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/home.png')}
@@ -27,7 +27,6 @@ const AppNavigation = TabNavigator({
   AddPhoto: {
     screen: AddPhoto,
     navigationOptions: {
-      tabBarLabel: 'Add Photo',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/add.png')}
@@ -39,7 +38,6 @@ const AppNavigation = TabNavigator({
   Profile: {
     screen: Profile,
     navigationOptions: {
-      tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/profile.png')}
@@ -47,7 +45,17 @@ const AppNavigation = TabNavigator({
         />
       ),
     }
+  },
+  DetailPhoto: {
+    screen: DetailPhoto,
+    }
+  }, {
+    tabBarOptions: {
+    showLabel: false,
+
   }
+
+
 });
 
 const styles = StyleSheet.create({

@@ -12,36 +12,42 @@ class Profile extends Component {
     camera: false
   }
 
+  onFocus = () => {
+    this.setState({
+      focus: true
+    })
+  }
+
+  onBlur = () => {
+    this.setState({
+      focus: false
+    })
+  }
+
   changeAvatar = () => {
-    // let { userPhoto } = this.state;
-    let camera = true;
-    this.setState(camera)
-    console.log('some')
+    this.props.navigation.navigate('AddPhoto', {type: 'avatar'});
   }
 
   render() {
-    let { camera, userPhoto } = this.state;
+    let { camera, userPhoto, focus } = this.state;
     const { state, actions } = this.props;
 
     return (
       <View style={{flex: 1, paddingTop: 20}}>
-        <Header />
+        <Header/>
         <View style={{flex:1}}>
           <TouchableHighlight onPress={this.changeAvatar}>
             <Image
-              style={{width:60, height: 60}}
-              source={require('./images/user.png')}
+              style={{width:60, height: 60, margin: 25}}
+              source={{uri: state.avatarUri}}
             />
-            {/*{camera && <TakePhoto />}*/}
           </TouchableHighlight>
           <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(name) => state.name}
+            style={[focus &&{borderColor: 'gray', borderWidth: 1}, {height: 40, margin: 15, paddingLeft: 10, fontWeight: 'bold'}]}
             value={state.name}
-          />
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            value={state.surname}
+            onChangeText={actions.changeUserName}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
           />
         </View>
       </View>

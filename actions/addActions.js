@@ -1,13 +1,30 @@
 import * as types from './actionTypes';
 
-export function addName() {
+export function changeUserName(username) {
   return {
-    type: types.ADD_NAME
+    type: types.CHANGE_USERNAME,
+    username
   };
 }
 
-export function addSurname() {
+export function addMainPhoto(uri) {
   return {
-    type: types.ADD_SURNAME
+    type: types.ADD_MAIN_IMG,
+    uri
+  };
+}
+
+export function addPost(uri, description) {
+  return {
+    type: types.ADD_POST,
+    uri,
+    description
+  };
+}
+
+export function changeAvatar(uri) {
+  return {
+    type: types.CHANGE_AVATAR,
+    uri,
   };
 }

@@ -13,6 +13,7 @@ import connectedStyles from './style';
 class Home extends Component {
   render() {
     const { state } = this.props;
+
     let listPhoto = state.posts.map((photo, key) =>
       <View key={key}>
         <View style={styles.wrapAbout}>
@@ -33,10 +34,11 @@ class Home extends Component {
         </Text>
       </View>
     )
+
     return (
-      <View style={{flex: 1, paddingTop: 20}}>
+      <View style={connectedStyles.screen}>
         <Header navigation={this.props.navigation}/>
-        <View style={{flex: 1}}>
+        <View style={[connectedStyles.main, {backgroundColor: 'white'}]}>
           <ScrollView>
             {listPhoto}
           </ScrollView>

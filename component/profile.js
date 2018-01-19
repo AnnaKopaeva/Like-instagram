@@ -27,6 +27,7 @@ class Profile extends Component {
     })
   }
 
+  //redirects to the screen gallery and photo
   changeAvatar = () => {
     this.props.navigation.navigate('AddPhoto', {type: 'avatar'});
   }
@@ -36,7 +37,7 @@ class Profile extends Component {
     const { state, actions } = this.props;
 
     return (
-      <View style={{flex: 1, paddingTop: 20}}>
+      <View style={connectedStyles.screen}>
         <Header/>
         <View style={connectedStyles.main}>
           <TouchableHighlight

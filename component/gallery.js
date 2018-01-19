@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Image, Text,  Button, ScrollView, CameraRoll, TouchableHighlight, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Image, Text,  Button, ScrollView, StyleSheet } from 'react-native';
+import { CameraRoll, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import * as addActions from '../actions/addActions';
@@ -50,12 +51,14 @@ class Gallery extends React.Component {
     let uri = this.state.photos[active].node.image.uri;
     let params = this.props.navigation.state.params;
 
+    //if user change avatar photo
     if (params && params.type === 'avatar') {
       actions.changeAvatar(uri);
       navigation.setParams({type: undefined});
-      navigation.navigate('Profile');
+      navigation.navigate('Profile');}
 
-    } else {
+    //if user add photo to list of posts
+    else {
       actions.addMainPhoto(uri);
       navigation.navigate('DetailPhoto');
     }
@@ -70,6 +73,7 @@ class Gallery extends React.Component {
       chunk = 3,
       list = [];
 
+    //added photos from the gallery to 3 pieces in a row
     for (let i=0; i < j; i += chunk) {
       let subItems = items.slice(i, i+chunk).map((p, key) => {
         return (

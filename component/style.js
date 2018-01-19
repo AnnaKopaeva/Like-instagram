@@ -7,7 +7,8 @@ var width = Dimensions.get('window').width;
 var connectedStyles = React.StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: 20
+    paddingTop: 20,
+    backgroundColor: 'white'
   },
   main: {
     flex: 1

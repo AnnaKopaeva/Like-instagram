@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 
+//change value user name
 export function changeUserName(username) {
   return {
     type: types.CHANGE_USERNAME,
@@ -7,6 +8,7 @@ export function changeUserName(username) {
   };
 }
 
+// prepare photo to send in list of posts
 export function addMainPhoto(uri) {
   return {
     type: types.ADD_MAIN_IMG,
@@ -14,6 +16,7 @@ export function addMainPhoto(uri) {
   };
 }
 
+//add post in list of posts
 export function addPost(uri, description) {
   return {
     type: types.ADD_POST,
@@ -22,6 +25,7 @@ export function addPost(uri, description) {
   };
 }
 
+//change user avatar
 export function changeAvatar(uri) {
   return {
     type: types.CHANGE_AVATAR,

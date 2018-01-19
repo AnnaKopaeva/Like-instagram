@@ -49,7 +49,12 @@ export default function addInfo(state = initialState, action = {}) {
       return {
         ...state,
         posts: [
-          {username: state.name, avatar: state.avatarUri, description: action.description, imgUri: action.uri},
+          {
+            username: state.name,
+            avatar: state.avatarUri,
+            description: action.description,
+            imgUri: action.uri
+          },
           ...state.posts]
       };
     case types.CHANGE_AVATAR:

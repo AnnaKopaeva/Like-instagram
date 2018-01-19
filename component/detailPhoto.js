@@ -23,6 +23,7 @@ class DetailPhoto extends Component {
     this.props.navigation.navigate('Home');
   }
 
+  //change data in post
   pressAdd = () => {
     this.setState({description: ''})
     this.props.actions.addPost(this.props.state.mainPhoto, this.state.description)

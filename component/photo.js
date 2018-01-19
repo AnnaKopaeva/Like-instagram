@@ -12,17 +12,13 @@ import connectedStyles from './style';
 var width = Dimensions.get('window').width;
 
 class TakePhoto extends React.Component {
-  constructor(props){
-    super(props);
-    this.takePhoto = this.takePhoto.bind(this);
-  }
-
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
     photo: {}
   };
 
+  //The permission for photo
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
@@ -33,12 +29,13 @@ class TakePhoto extends React.Component {
       let photo = await this.camera.takePictureAsync();
       let params = this.props.navigation.state.params;
 
+      //if user change avatar photo
       if (params && params.type === 'avatar') {
         this.props.actions.changeAvatar(photo.uri);
         this.props.navigation.setParams({type: undefined});
-        this.props.navigation.navigate('Profile');
-
-      } else {
+        this.props.navigation.navigate('Profile');}
+      //if user add photo to list of posts
+      else {
         this.props.actions.addMainPhoto(photo.uri);
         this.props.navigation.navigate('DetailPhoto');
       }
@@ -47,6 +44,7 @@ class TakePhoto extends React.Component {
 
   render() {
     const { hasCameraPermission } = this.state;
+
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {

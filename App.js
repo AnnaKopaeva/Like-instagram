@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, Image } from 'react-native'
-import { TabNavigator } from 'react-navigation';
+import { Image } from 'react-native'
+import { TabNavigator, StackNavigator } from 'react-navigation';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -12,14 +12,17 @@ import AddPhoto from './component/addPhoto';
 import Profile from './component/profile';
 import DetailPhoto from './component/detailPhoto';
 
-const AppNavigation = TabNavigator({
+//styles
+import connectedStyles from './component/style';
+
+const TabNavigation = TabNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/home.png')}
-          style={[styles.icon, {tintColor: tintColor}]}
+          style={[connectedStyles.icon, {tintColor: tintColor}]}
         />
       ),
     }
@@ -30,7 +33,7 @@ const AppNavigation = TabNavigator({
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/add.png')}
-          style={[styles.icon, {tintColor: tintColor}]}
+          style={[connectedStyles.icon, {tintColor: tintColor}]}
         />
       ),
     }
@@ -41,28 +44,27 @@ const AppNavigation = TabNavigator({
       tabBarIcon: ({ tintColor }) => (
         <Image
           source={require('./component/images/profile.png')}
-          style={[styles.icon, {tintColor: tintColor}]}
+          style={[connectedStyles.icon, {tintColor: tintColor}]}
         />
       ),
     }
-  },
-  DetailPhoto: {
-    screen: DetailPhoto,
-    }
+  }
   }, {
     tabBarOptions: {
     showLabel: false,
 
   }
-
-
 });
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 20,
-    height: 20,
-  },
+export const AppNavigation = StackNavigator({
+  Tab: { screen: TabNavigation },
+  DetailPhoto: {
+    screen: DetailPhoto,
+  }
+},{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);

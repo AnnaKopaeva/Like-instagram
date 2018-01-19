@@ -1,38 +1,36 @@
 import React, {Component} from 'react';
+import { View, Image, Text, ScrollView, StyleSheet } from 'react-native';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
 import * as addActions from '../actions/addActions';
-import { View, Image, Text, ScrollView, Dimensions, TouchableHighlight } from 'react-native';
 
 import Header from "./header";
 
-var width = Dimensions.get('window').width;
+//styles
+import connectedStyles from './style';
 
 class Home extends Component {
-  state = {
-    number: '2'
-  }
-
-  addPost = () => {
-
-  }
-
   render() {
-    let { number } = this.state;
-    const { state, actions } = this.props;
+    const { state } = this.props;
     let listPhoto = state.posts.map((photo, key) =>
       <View key={key}>
+        <View style={styles.wrapAbout}>
+          <Image
+            style={styles.avatar}
+            source={{uri: photo.avatar}}/>
+          <Text>
+            {photo.username}
+          </Text>
+        </View>
         <Image
-          source={{uri: photo.avatarUri}}/>
-        <Text>{photo.username}</Text>
-        <Image
-          style={{width: width, height: width}}
+          style={connectedStyles.imageSize}
           source={{uri: photo.imgUri}}
         />
         <Text
-          style={{paddingTop: 10}}
-          >{photo.description}</Text>
+          style={styles.description}>
+          {photo.description}
+        </Text>
       </View>
     )
     return (
@@ -47,6 +45,25 @@ class Home extends Component {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  wrapAbout: {
+    flexDirection:'row',
+    flexWrap:'nowrap',
+    alignItems: 'center',
+    padding: 10
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginRight: 10
+  },
+  description: {
+    padding: 10
+  }
+});
+
 export default connect(state => ({
     state: state.addInfo
   }),

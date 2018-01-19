@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import { View, Button, Image, TextInput, TouchableHighlight, Dimensions, ScrollView } from 'react-native';
+import { View, Image, TextInput, Text, TouchableHighlight, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import * as addActions from '../actions/addActions';
 
 import Header from './header'
 
-var width = Dimensions.get('window').width;
+//styles
+import connectedStyles from './style';
 
 class DetailPhoto extends Component {
   state = {
@@ -29,33 +30,77 @@ class DetailPhoto extends Component {
   }
 
   render() {
-    let { camera, userPhoto, focus } = this.state;
-    const { state, actions } = this.props;
-
+    const { state } = this.props;
     return (
-      <View style={{flex: 1, paddingTop: 20}}>
+      <View style={connectedStyles.screen}>
         <Header/>
-        <View style={{flex:1}}>
+        <View style={[connectedStyles.main, {backgroundColor: 'white'}]}>
           <ScrollView>
             <TouchableHighlight>
               <Image
-                style={{width:width, height: width}}
+                style={connectedStyles.imageSize}
                 source={{uri: state.mainPhoto}}
               />
             </TouchableHighlight>
             <TextInput
-              style={{borderColor: 'gray', borderWidth: 1, margin: 15, paddingLeft: 10, fontWeight: 'bold'}}
+              style={styles.description}
+              placeholder='Enter a description to your photo'
               value={this.state.description}
               onChangeText={this.changeDescription}
             />
-            <Button title='add' onPress={this.pressAdd}/>
-            <Button title='cancel' onPress={this.pressCancel}/>
+            <View style={styles.wrapBtn}>
+              <TouchableOpacity
+                onPress={this.pressAdd}
+                style={[styles.btn, styles.btnAdd]}>
+                <Text
+                  style={connectedStyles.textAddPhoto}>
+                  Add
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={this.pressCancel}
+                style={[styles.btn, styles.btnCancel]}>
+                <Text
+                  style={[connectedStyles.textAddPhoto]}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
         </View>
       </View>
     );
+  }
 }
-}
+const styles = StyleSheet.create({
+  btn: {
+    width: 250,
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderRadius: 5,
+  },
+  wrapBtn: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  btnAdd: {
+    backgroundColor: 'white',
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#c8ccd0'
+  },
+  btnCancel: {
+    backgroundColor: '#c8ccd0'
+  },
+  description: {
+    borderRadius: 5,
+    margin: 15,
+    padding: 10,
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
+});
 
 export default connect(state => ({
   state: state.addInfo

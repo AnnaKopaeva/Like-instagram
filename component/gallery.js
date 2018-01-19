@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Image, Text, Button, ScrollView, CameraRoll, Dimensions, TouchableHighlight } from 'react-native';
+import { View, Image, Text,  Button, ScrollView, CameraRoll, TouchableHighlight, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import * as addActions from '../actions/addActions';
+
+//styles
+import connectedStyles from './style';
 
 var width = Dimensions.get('window').width;
 
@@ -16,10 +19,9 @@ class Gallery extends React.Component {
       active: 0
     }
   }
-
   componentDidMount() {
     CameraRoll.getPhotos({
-      first: 9,
+      first: 51,
       assetType: 'All',
     })
       .then(r => {
@@ -44,23 +46,23 @@ class Gallery extends React.Component {
 
   sentPhoto = () => {
     let {active} =this.state;
+    let {actions, navigation} = this.props;
     let uri = this.state.photos[active].node.image.uri;
     let params = this.props.navigation.state.params;
 
     if (params && params.type === 'avatar') {
-      this.props.actions.changeAvatar(uri);
-      this.props.navigation.setParams({type: undefined});
-      this.props.navigation.navigate('Profile');
+      actions.changeAvatar(uri);
+      navigation.setParams({type: undefined});
+      navigation.navigate('Profile');
 
     } else {
-      this.props.actions.addMainPhoto(uri);
-      this.props.navigation.navigate('DetailPhoto');
+      actions.addMainPhoto(uri);
+      navigation.navigate('DetailPhoto');
     }
   }
 
   pressImage = (active) => {
     this.setState({active});
-    console.log(active)
   }
 
   getGalery = (items) => {
@@ -73,14 +75,9 @@ class Gallery extends React.Component {
         return (
           <TouchableHighlight onPress={() => this.pressImage(key + i)} key={key + i }>
             <Image
-               style={{
-                  width: Math.floor(width/3),
-                  height: Math.floor(width/3),
-                  borderWidth: 1,
-                  borderColor: 'white'
-                }}
-                source={{ uri: p.node.image.uri }}
-                resizeMode="cover"
+               style={styles.miniImage}
+               source={{ uri: p.node.image.uri }}
+               resizeMode="cover"
             />
           </TouchableHighlight>
         );
@@ -98,17 +95,21 @@ class Gallery extends React.Component {
   render() {
     let {photos, active, cameraRollInfo: {has_next_page}} = this.state;
     return (
-      <View style={{flex: 1}}>
+      <View style={connectedStyles.main}>
         { photos[0] &&
-          <View style={{borderBottomWidth: 1, borderColor: 'white'}}>
+          <View style={styles.wrapMainImage}>
             <Image
-              style={{width: width, height: width}}
+              style={connectedStyles.imageSize}
               source={{ uri: photos[active].node.image.uri }}
               resizeMode="cover"/>
-            <Button
-              title='add'
+            <TouchableOpacity
               onPress={this.sentPhoto}
-              style={{width: 40, height: 40, position: 'absolute', top: 10, right: 10, zIndex: 5, borderRadius: 20}}/>
+              style={styles.addPhoto}>
+              <Text
+                style={connectedStyles.textAddPhoto}>
+                Next
+              </Text>
+            </TouchableOpacity>
           </View>
         }
         <ScrollView>
@@ -122,6 +123,27 @@ class Gallery extends React.Component {
   }
 }
 
+const styles = StyleSheet.create({
+  miniImage: {
+    width: Math.floor(width/3),
+    height: Math.floor(width/3),
+    borderWidth: 1,
+    borderColor: 'white'
+  },
+  wrapMainImage: {
+    borderBottomWidth: 1,
+    borderColor: 'white'
+  },
+  addPhoto: {
+    borderRadius: 60,
+    padding: 15,
+    backgroundColor: 'white',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  }
+})
+
 export default connect(state => ({
     state: state.addInfo
   }),
@@ -129,4 +151,3 @@ export default connect(state => ({
     actions: bindActionCreators(addActions, dispatch)
   })
 )(Gallery);
-

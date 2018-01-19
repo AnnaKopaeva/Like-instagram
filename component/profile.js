@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
-import { View, Image, TextInput, TouchableHighlight } from 'react-native';
+import { View, Image, TextInput, TouchableHighlight, StyleSheet } from 'react-native';
 import * as addActions from '../actions/addActions';
 
 import Header from './header'
+
+//styles
+import connectedStyles from './style';
 
 class Profile extends Component {
   state = {
@@ -29,21 +32,23 @@ class Profile extends Component {
   }
 
   render() {
-    let { camera, userPhoto, focus } = this.state;
+    let { focus } = this.state;
     const { state, actions } = this.props;
 
     return (
       <View style={{flex: 1, paddingTop: 20}}>
         <Header/>
-        <View style={{flex:1}}>
-          <TouchableHighlight onPress={this.changeAvatar}>
+        <View style={connectedStyles.main}>
+          <TouchableHighlight
+            style={styles.wrapperAvatarImage}
+            onPress={this.changeAvatar}>
             <Image
-              style={{width:60, height: 60, margin: 25}}
+              style={styles.avatarImage}
               source={{uri: state.avatarUri}}
             />
           </TouchableHighlight>
           <TextInput
-            style={[focus &&{borderColor: 'gray', borderWidth: 1}, {height: 40, margin: 15, paddingLeft: 10, fontWeight: 'bold'}]}
+            style={[focus && styles.focusInput, styles.textInput]}
             value={state.name}
             onChangeText={actions.changeUserName}
             onFocus={this.onFocus}
@@ -54,6 +59,31 @@ class Profile extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  wrapperAvatarImage: {
+    paddingTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  avatarImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100
+  },
+  textInput: {
+    height: 40,
+    margin: 15,
+    paddingLeft: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    borderRadius: 5,
+  },
+  focusInput: {
+    borderColor: 'gray',
+    borderWidth: 1
+  }
+})
 
 export default connect(state => ({
     state: state.addInfo

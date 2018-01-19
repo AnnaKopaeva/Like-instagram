@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import { View, Button, TouchableHighlight, Image, ScrollView} from 'react-native';
+import { View, ScrollView} from 'react-native';
 
 import TakePhoto from './photo';
 import Gallery from './gallery';
 import Header from "./header";
 
+//styles
+import connectedStyles from './style';
+
 export default class AddPhoto extends Component {
   render() {
     return (
-      <View style={{flex: 1, paddingTop: 20}}>
+      <View style={connectedStyles.screen}>
         <Header />
-        <ScrollView style={{flex: 1}} horizontal={true}>
+        <ScrollView style={connectedStyles.main} horizontal={true}>
           <Gallery navigation={this.props.navigation} />
           <TakePhoto navigation={this.props.navigation} />
         </ScrollView>

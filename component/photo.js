@@ -1,14 +1,15 @@
 import React from 'react';
-import { Text, View, Image, Button, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Camera, Permissions } from 'expo';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 
 import * as addActions from '../actions/addActions';
 
+//styles
+import connectedStyles from './style';
 
 var width = Dimensions.get('window').width;
-var height = Dimensions.get('window').height;
 
 class TakePhoto extends React.Component {
   constructor(props){
@@ -41,21 +42,20 @@ class TakePhoto extends React.Component {
         this.props.actions.addMainPhoto(photo.uri);
         this.props.navigation.navigate('DetailPhoto');
       }
-
     }
   }
 
   render() {
-    const { hasCameraPermission, photo } = this.state;
+    const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
+        <View style={connectedStyles.main}>
           <Camera
-            style={{ justifyContent: 'flex-end', flexDirection: 'column'}}
+            style={styles.cameraWrap}
             width={width}
             height={width}
             type={this.state.type}
@@ -70,19 +70,15 @@ class TakePhoto extends React.Component {
                 });
               }}>
               <Image
-                style={{width: 30, height: 30}}
+                style={styles.cameraSwitch}
                 source={require('./images/camera-switch.png')}
               />
             </TouchableOpacity>
           </Camera>
           <View
-            style={{
-              backgroundColor: 'white',
-              height: 200,
-              width: width,
-            }}>
+            style={styles.wrapBtnTakePhoto}>
             <TouchableOpacity
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+              style={styles.btnTakePhoto}
               onPress={this.takePhoto.bind(this)}>
               <View style={styles.photoBtn}>
                 <View style={styles.photoBtnCircle}>
@@ -105,6 +101,24 @@ export default connect(state => ({
 )(TakePhoto);
 
 const styles = StyleSheet.create({
+  cameraWrap: {
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
+  },
+  cameraSwitch: {
+    width: 30,
+    height: 30
+  },
+  wrapBtnTakePhoto: {
+    backgroundColor: 'white',
+    height: 200,
+    width: width,
+  },
+  btnTakePhoto: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   buttonsPhoto: {
     paddingLeft: 20,
     paddingRight: 20,

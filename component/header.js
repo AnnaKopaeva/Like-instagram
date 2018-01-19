@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 export default class Header extends Component {
   render(){
     return(
-      <View style={{height: 40, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center'}}>
+      <View style={styles.header}>
         <Image
-          style={{height: 30, margin: 'auto'}}
+          style={styles.image}
           resizeMode="contain"
           source={require('./images/instagram_logo.svg')}
         />
@@ -14,3 +14,16 @@ export default class Header extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    height: 40,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  image: {
+    height: 30,
+    margin: 'auto'
+  }
+})
